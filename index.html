@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -70,11 +64,13 @@ and open the template in the editor.
         "esri/widgets/BasemapGallery",
         "esri/Graphic",
         "esri/widgets/Editor",
-        "esri/widgets/DistanceMeasurement2D"
+        "esri/widgets/DistanceMeasurement2D",
+        "esri/widgets/Expand"
+
         
         ], 
         
-        (Map, MapView,TileLayer,FeatureLayer,Legend,ScaleBar,Search,LayerList,BasemapGallery,Graphic,Editor,DistanceMeasurement2D) => {
+        (Map, MapView,TileLayer,FeatureLayer,Legend,ScaleBar,Search,LayerList,BasemapGallery,Graphic,Editor,DistanceMeasurement2D,Expand) => {
         
         //let tlayer = new TileLayer({url: "https://www.geosceneonline.cn/server/rest/services/Hosted/省级行政区蓝色矢量切片2/VectorTileServer"});
        const layer = new FeatureLayer({url:"https://www.geosceneonline.cn/server/rest/services/Hosted/厦门市著名旅游景点/FeatureServer"});
@@ -98,8 +94,13 @@ and open the template in the editor.
           view: view,
           layerInfos:[{layer:layer,title:"厦门旅游景点" }]
         });
-        
-        view.ui.add(legend1, "bottom-right");
+         const legend1Expand = new Expand({
+          view: view,
+          content: legend1,
+          expanded:false
+        });
+        view.ui.add(legend1Expand, {position:"top-left"});
+
       
        let scaleBar = new ScaleBar({
          view: view,
@@ -221,13 +222,23 @@ and open the template in the editor.
        const editor = new Editor({ //编辑
           view: view
         });
-        view.ui.add(editor, "top-left");
 
+      const editorExpand = new Expand({
+          view: view,
+          content: editor,
+          expanded:false
+        });
+        view.ui.add(editorExpand, {position:"top-left"});
         
         let measurementWidget = new DistanceMeasurement2D({
           view: view
         });
-        view.ui.add(measurementWidget, "top-left");
+        const measurementWidgetExpand = new Expand({
+          view: view,
+          content: measurementWidget,
+          expanded:false
+        });
+        view.ui.add(measurementWidgetExpand, {position:"top-left"});
           
         });
     </script>
